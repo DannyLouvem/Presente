@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Presente Especial</title>
+   <style>
+      @keyframes openBox {
+         0% {
+            transform: rotateX(0);
+         }
+         50% {
+            transform: rotateX(90deg);
+         }
+         100% {
+            transform: rotateX(0);
+         }
+      }
+
+      @keyframes unfoldPaper {
+         0% {
+            transform: scaleY(1);
+         }
+         50% {
+            transform: scaleY(0);
+         }
+         100% {
+            transform: scaleY(1);
+         }
+      }
+
+      @keyframes revealMessage {
+         0% {
+            opacity: 0;
+         }
+         100% {
+            opacity: 1;
+         }
+      }
+
+      body {
+         margin: 0;
+         padding: 0;
+         background-color: #b26eff;
+      }
+
+      .container {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+      }
+
+      .box {
+         width: 600px;
+         height: 600px;
+         background-color: rgba(111, 0, 255, 0.367);
+         position: relative;
+         animation: openBox 2s ease-in-out forwards;
+      }
+
+      .paper {
+         width: 100%;
+         height: 100%;
+         background-color: rgb(188, 192, 254);
+         position: absolute;
+         top: 0;
+         left: 0;
+         animation: unfoldPaper 2s ease-in-out forwards;
+      }
+
+      .message {
+         display: none;
+         text-align: center;
+         font-size: 80px;
+         color: black;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         animation: revealMessage 2s ease-in-out forwards;
+      }
+   </style>
+</head>
+<body>
+   <div class="container">
+      <div class="box">
+         <div class="paper">
+            <div class="message">
+               O presente está embaixo da sua Cama!
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <script>
+      setTimeout(function() {
+         document.querySelector('.message').style.display = 'block';
+      }, 2000);
+   </script>
+</body>
+</html>
