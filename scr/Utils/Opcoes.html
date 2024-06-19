@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Galeria de Imagens e Conteúdo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+      }
+
+      .section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      .caption {
+        font-weight: bold;
+        font-size: 24px;
+        margin: 10px 0;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        color: #ffffff;
+        background-color: #4caf50;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .button:hover {
+        background-color: #45a049;
+      }
+
+      audio {
+        width: 100%;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <script>
+    function redirectToPage(page) {
+      window.location.href = page;
+    }
+
+    function abrirApresentacao() {
+      window.location.href =
+        "https://docs.google.com/presentation/d/1DEcFdL8EiqCbiqbjgOWOS0DJQ7qEstyvVzm_qWxkU4c/edit?usp=drivesdk";
+    }
+  </script>
+  <body>
+    <div
+      class="section"
+      onclick="redirectToPage('Galeria.html')"
+      style="
+        background-image: url('Public/Images/Galeria.jpeg');
+        background-size: cover;
+      "
+    >
+      <h1 class="caption">Nossas Fotos</h1>
+      <button class="button" onclick="event.stopPropagation();">
+        Ver Fotos
+      </button>
+    </div>
+    <div
+      class="section"
+      onclick="redirectToPage('musicas.html')"
+      style="
+        background-image: url('Public/Images/Musica.jpeg');
+        background-size: cover;
+      "
+    >
+      <h1 class="caption">Nossas Músicas</h1>
+      <audio controls>
+        <source
+          src="Public/Musics/Melhor_Amiga_Manu_Silva.wav"
+          type="audio/wav"
+        />
+      </audio>
+      <button class="button" onclick="event.stopPropagation();">
+        Ouvir Música
+      </button>
+    </div>
+    <div
+      class="section"
+      onclick="abrirApresentacao()"
+      style="
+        background-image: url('Public/Images/Dicionario.jpeg');
+        background-size: cover;
+      "
+    >
+      <h1 class="caption">Nosso Dicionário</h1>
+      <button class="button" onclick="event.stopPropagation();">
+        Abrir Apresentação
+      </button>
+    </div>
+  </body>
+</html>

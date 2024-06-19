@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify - Nossas Músicas</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #282828;
+      }
+
+      h1 {
+        text-align: center;
+        font-family: "Pacifico", cursive;
+        font-size: 48px;
+        color: #ffffff;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #333;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .song-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .song-item {
+        background-color: #444;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .song-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .song-item img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      .song-info {
+        padding: 20px;
+      }
+
+      .song-info h2 {
+        margin: 0;
+        font-size: 24px;
+        color: #ffffff;
+        margin-bottom: 10px;
+      }
+
+      .song-info p {
+        margin: 0;
+        color: #888;
+        opacity: 0.9;
+      }
+
+      audio {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .control-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+
+      .control-button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 17px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 200px;
+        border: none;
+        color: #fff;
+        background-color: transparent;
+        box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+      }
+
+      .control-button:hover {
+        filter: brightness(90%);
+      }
+
+      /* Adiciona uma margem à direita do botão de voltar para separá-lo dos outros botões */
+      .arrow-back-button {
+        position: absolute; /* Usa posição absoluta para alinhar exatamente */
+        left: 0; /* Alinha à extrema esquerda */
+        margin-right: 200px; /* Mantém algum espaço entre este botão e os outros botões */
+      }
+
+      .control-panel {
+        display: flex;
+        justify-content: right; /* Mantém os botões distribuídos igualmente */
+        align-items: center;
+        padding: -10px;
+        background-color: #333;
+        border-bottom: 1px solid #555;
+      }
+
+      /* Remove as margens específicas dos botões de reprodução aleatória e sequencial */
+      .shuffle-button,
+      .sequence-button {
+        margin-left: 0; /* Remove a margem à esquerda */
+      }
+
+      .control-panel button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .control-panel button:hover {
+        color: #ddd;
+      }
+
+      #now-playing {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0); /* Fundo transparente */
+        padding: -10px; /* Espaçamento interno para o texto e botões */
+        margin: auto; /* Centraliza a div horizontalmente dentro do.control-panel */
+        color: #a1ffc8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="control-panel">
+      <button class="arrow-back-button" onclick="window.history.back()">
+        <i class="material-icons">arrow_back</i>
+      </button>
+      <div id="now-playing" style="display: none">
+        <!-- Este div será preenchido dinamicamente com informações da música atual -->
+      </div>
+      <button class="shuffle-button" onclick="playRandom()">
+        <i class="material-icons">shuffle</i>
+      </button>
+      <button class="sequence-button" onclick="playSequential()">
+        <i class="material-icons">play_arrow</i>
+      </button>
+    </div>
+
+    <div class="container">
+      <h1>Nossas Músicas</h1>
+      <ul class="song-list">
+        <li class="song-item">
+          <img src="Public/Images/Melhor_Amiga.jpg" alt="Melhor Amiga" />
+          <div class="song-info">
+            <h2>Melhor Amiga</h2>
+            <p>Manu Silva</p>
+            <div class="control-buttons">
+              <button
+                class="control-button"
+                onclick="playAudio('melhor-amiga')"
+              >
+                Play
+              </button>
+              <audio
+                id="melhor-amiga"
+                src="Public/Musics/Melhor_Amiga_Manu_Silva.wav"
+                type="audio/wav"
+              ></audio>
+              <button
+                class="control-button"
+                onclick="pauseAudio('melhor-amiga')"
+              >
+                Pause
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li class="song-item">
+          <img src="Public/Images/Floribella.jpg" alt="Você Vai Voltar" />
+          <div class="song-info">
+            <h2>Você Vai Voltar</h2>
+            <p>Floribella</p>
+            <div class="control-buttons">
+              <button class="control-button" onclick="playAudio('Floribella')">
+                Play
+              </button>
+              <audio
+                id="Floribella"
+                src="Public/Musics/Voce_vai_Voltar.wav"
+                type="audio/wav"
+              ></audio>
+              <button class="control-button" onclick="pauseAudio('Floribella')">
+                Pause
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li class="song-item">
+          <img src="Public/Images/Imortal.jpg" alt="Imortal" />
+          <div class="song-info">
+            <h2>Imortal</h2>
+            <p>Sandy</p>
+            <div class="control-buttons">
+              <button class="control-button" onclick="playAudio('Imortal')">
+                Play
+              </button>
+              <audio
+                id="Imortal"
+                src="Public/Musics/Imortal.wav"
+                type="audio/wav"
+              ></audio>
+              <button class="control-button" onclick="pauseAudio('Imortal')">
+                Pause
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li class="song-item">
+          <img src="Public/Images/Barbie2.jpg" alt="Unidas" />
+          <div class="song-info">
+            <h2>Unidas</h2>
+            <p>Barbie</p>
+            <div class="control-buttons">
+              <button class="control-button" onclick="playAudio('Unidas')">
+                Play
+              </button>
+              <audio
+                id="Unidas"
+                src="Public/Musics/Unidas.wav"
+                type="audio/wav"
+              ></audio>
+              <button class="control-button" onclick="pauseAudio('Unidas')">
+                Pause
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li class="song-item">
+          <img src="Public/Images/Barbie1.jpg" alt="Castelo de Diamantes" />
+          <div class="song-info">
+            <h2>A Nossa Canção</h2>
+            <p>Barbie</p>
+            <div class="control-buttons">
+              <button class="control-button" onclick="playAudio('Diamantes')">
+                Play
+              </button>
+              <audio
+                id="Diamantes"
+                src="Public/Musics/A_Nossa_cancao.wav"
+                type="audio/wav"
+              ></audio>
+              <button class="control-button" onclick="pauseAudio('Diamantes')">
+                Pause
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li class="song-item">
+          <img src="Public/Images/Empreguete.jpg" alt="Empreguete" />
+          <div class="song-info">
+            <h2>Vida de Empreguete</h2>
+            <p>Empreguetes</p>
+            <div class="control-buttons">
+              <button class="control-button" onclick="playAudio('Empreguete')">
+                Play
+              </button>
+              <audio
+                id="Empreguete"
+                src="Public/Musics/Vida_de_Empreguete.wav"
+                type="audio/wav"
+              ></audio>
+              <button class="control-button" onclick="pauseAudio('Empreguete')">
+                Pause
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li class="song-item">
+          <img src="Public/Images/Ela.jpg" alt="Ela e Top" />
+          <div class="song-info">
+            <h2>Ela é Top</h2>
+            <p>MC Bola</p>
+            <div class="control-buttons">
+              <button class="control-button" onclick="playAudio('Ela')">
+                Play
+              </button>
+              <audio
+                id="Ela"
+                src="Public/Musics/Ela_e_Top.wav"
+                type="audio/wav"
+              ></audio>
+              <button class="control-button" onclick="pauseAudio('Ela')">
+                Pause
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li class="song-item">
+          <img src="Public/Images/Superman.jpg" alt="Superman" />
+          <div class="song-info">
+            <h2>Superman</h2>
+            <p>Liga da Justiça</p>
+            <div class="control-buttons">
+              <button class="control-button" onclick="playAudio('Superman')">
+                Play
+              </button>
+              <audio
+                id="Superman"
+                src="Public/Musics/Superman.wav"
+                type="audio/wav"
+              ></audio>
+              <button class="control-button" onclick="pauseAudio('Superman')">
+                Pause
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li class="song-item">
+          <img src="Public/Images/Catra.jpg" alt="Psicologia" />
+          <div class="song-info">
+            <h2>Psicologia</h2>
+            <p>Feat. Jair da Rocha</p>
+            <div class="control-buttons">
+              <button class="control-button" onclick="playAudio('Psicologia')">
+                Play
+              </button>
+              <audio
+                id="Psicologia"
+                src="Public/Musics/Psicologia.wav"
+                type="audio/wav"
+              ></audio>
+              <button class="control-button" onclick="pauseAudio('Psicologia')">
+                Pause
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <!-- Itens da música aqui -->
+      </ul>
+    </div>
+
+    <script>
+      let currentAudioIndex = 0;
+      const audios = document.getElementsByTagName("audio");
+
+      function updateNowPlayingInfo() {
+        const nowPlayingDiv = document.getElementById("now-playing");
+        const currentSongItem = audios[currentAudioIndex].closest(".song-item");
+        const songTitle =
+          currentSongItem.querySelector(".song-info h2").innerText;
+        const songArtist =
+          currentSongItem.querySelector(".song-info p").innerText;
+        nowPlayingDiv.innerHTML = `<h3>${songTitle} - ${songArtist} - ${" "}<span id="current-time">00:00</span></h3>`; // Adiciona um span para o tempo atual
+        nowPlayingDiv.style.display = "flex";
+
+        togglePlayPauseButton();
+        updateTime(); // Inicia a atualização do tempo
+      }
+
+      function updateTime() {
+        const currentTimeElement = document.getElementById("current-time");
+        const currentAudio = audios[currentAudioIndex];
+        const minutes = Math.floor(currentAudio.currentTime / 60);
+        const seconds = Math.floor(currentAudio.currentTime % 60);
+        currentTimeElement.innerText = `${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`; // Fixed here
+
+        if (!currentAudio.paused) {
+          setTimeout(updateTime, 1000); // Updates every second
+        }
+      }
+
+      function togglePlayPauseButton() {
+        const playPauseButton = document.getElementById("play-pause-button"); // Altere o ID conforme necessário
+        const currentAudio = audios[currentAudioIndex];
+
+        if (!currentAudio.paused) {
+          playPauseButton.innerText = "Pausar";
+          playPauseButton.onclick = pauseCurrentAudio;
+        } else {
+          playPauseButton.innerText = "Reproduzir";
+          playPauseButton.onclick = function () {
+            playAudio(currentAudio.id);
+          };
+        }
+      }
+
+      // Na função playAudio(), certifique-se de que o botão de pausa/reprodução esteja sendo atualizado corretamente
+      function playAudio(audioId) {
+        pauseCurrentAudio(); // Garante que a música anterior seja pausada
+
+        const audio = document.getElementById(audioId);
+        audio.play();
+        currentAudioIndex = Array.from(audios).indexOf(audio); // Atualiza o índice da música atual
+        updateNowPlayingInfo();
+        updateTime(); // Inicia a atualização do tempo
+      }
+
+      // Na função pauseCurrentAudio(), atualize o botão de pausa/reprodução conforme necessário
+      function pauseCurrentAudio() {
+        const currentAudio = audios[currentAudioIndex];
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        togglePlayPauseButton(); // Atualiza o botão para "Reproduzir"
+      }
+
+      function playRandom() {
+        const randomIndex = Math.floor(Math.random() * audios.length);
+        const randomAudio = audios[randomIndex];
+
+        for (let i = 0; i < audios.length; i++) {
+          if (audios[i] !== randomAudio) {
+            audios[i].pause();
+            audios[i].currentTime = 0;
+          }
+        }
+
+        randomAudio.play();
+        currentAudioIndex = randomIndex; // Atualiza o índice da música atual
+        updateNowPlayingInfo();
+        updateTime(); // Inicia a atualização do tempo
+      }
+
+      function playSequential() {
+        let nextAudio;
+        if (currentAudioIndex === audios.length - 1) {
+          nextAudio = audios[0];
+          currentAudioIndex = 0;
+        } else {
+          nextAudio = audios[currentAudioIndex + 1];
+          currentAudioIndex++;
+        }
+
+        for (let i = 0; i < audios.length; i++) {
+          if (audios[i] !== nextAudio) {
+            audios[i].pause();
+            audios[i].currentTime = 0;
+          }
+        }
+
+        nextAudio.play();
+        updateNowPlayingInfo();
+        updateTime(); // Inicia a atualização do tempo
+      }
+
+      // Event listener para cada elemento de áudio
+      for (let i = 0; i < audios.length; i++) {
+        audios[i].addEventListener("play", function () {
+          currentAudioIndex = Array.from(audios).indexOf(this);
+          updateNowPlayingInfo();
+        });
+      }
+
+      // Configuração inicial do botão de pausar/reproduzir
+      document
+        .getElementById("pause-current-audio")
+        .addEventListener("click", function () {
+          const currentAudio = audios[currentAudioIndex];
+          if (!currentAudio.paused) {
+            pauseCurrentAudio();
+          } else {
+            playAudio(currentAudio.id);
+          }
+        });
+    </script>
+  </body>
+</html>
